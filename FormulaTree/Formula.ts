@@ -3,8 +3,6 @@ import {Valuation} from "./Valuation";
 
 export enum FormulaType { T_TRUE, T_FALSE, T_ATOM, T_NOT, T_AND, T_OR, T_IMP, T_IFF }
 
-
-
 export abstract class Formula {
     abstract print(): void;
     abstract getType(): FormulaType;

@@ -12,7 +12,7 @@ export class Or extends BinaryConjective {
     }
 
     toString(): string{
-        return this.operand1.toString() + '∨' + this.operand2.toString();
+        return '(' + this.operand1.toString() + '∨' + this.operand2.toString() + ')';
     }
 
     print():void {

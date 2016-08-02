@@ -1,15 +1,11 @@
-export class AtomSet {
-    public value: number[];
+import * as Collections from "typescript-collections";
+import {Atom} from "./Atom";
+
+export class AtomSet extends Collections.Set<number>{
 
     constructor() {
-        this.value = [];
-    }
-
-    public getAtomSet(): number[] {
-        return this.value;
-    }
-
-    public setAtomSet(v: number[]): void {
-        this.value = v;
+        super((atom) => {
+            return '' + atom + ' ';
+        });
     }
 }

@@ -1,6 +1,7 @@
  import {Formula, FormulaType} from './Formula'
  import {AtomicFormula} from './AtomicFormula'
  import {Valuation} from './Valuation'
+ import {AtomSet} from "./AtomSet";
  /**
  * Atom
  */
@@ -29,15 +30,15 @@ export class Atom extends AtomicFormula {
         return FormulaType.T_ATOM;
     }
 
-// TODO: ovo proveriti da li moze kao u C++ da se uradi??? 
-    public getAtoms(): number
+
+    public getAtoms(atoms: AtomSet): void
     {
-        return this._varNum;
+        atoms.add(this._varNum);
     }
 
     public evaluate(v: Valuation): boolean
     {
-        return v[this._varNum];
+        return v.getValueOfAtom(this._varNum);
     }
 
     public toString = ():string => {

@@ -1,25 +1,27 @@
 import {AtomSet} from './AtomSet';
+import * as Collections from 'typescript-collections';
+import {Atom} from "./Atom";
 
 export class Valuation {
-    public value: {[key: number]: boolean} = {};
+    public value: Collections.Dictionary<number, boolean>;
 
-    constructor(){}
+    constructor(){
+        this.value = new Collections.Dictionary<number, boolean>();
+    }
 
     public init(atoms: AtomSet): void 
     {
-        this.value = {};
-
-        for (let atom of atoms.getAtomSet()) {
-            this.value[atom] = false;
-        }
+        this.value = new Collections.Dictionary<number, boolean>();
+        atoms.forEach((atom) => {this.value.setValue(atom, false)});
     }
 
     public nextValuation(): boolean  
     {
-        for (var key in this.value) {
-            let oldValue:boolean = this.value[key];
-            let newValue:boolean = !oldValue;
-            this.value[key] = newValue;
+        let keys = this.value.keys().sort();
+        for (let key of keys) {
+            let oldValue = this.value.getValue(key);
+            let newValue = !oldValue;
+            this.value.setValue(key, newValue);
             if (newValue === true) {
                 return true;
             }
@@ -27,20 +29,20 @@ export class Valuation {
         return false;
     }
 
-    public  getValueOfAtom(i: number):boolean
+    public getValueOfAtom(a: number):boolean
     {
-        return this.value[i];
+        return this.value.getValue(a);
     }
 
-    public setValueOfAtom(i: number, b: boolean):void
+    public setValueOfAtom(a: number, b: boolean):void
     {
-        this.value[i] = b;
+        this.value.setValue(a, b);
     }
 
-    public toString = () : string => {
+    public toString(): string {
         let result: string = '';
-        for (var key in this.value) {
-            result += this.value[key] + ' ';
+        for (let key of this.value.keys().sort()) {
+            result += this.value.getValue(key) + ' ';
         }
         return result;
     }

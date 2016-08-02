@@ -3,7 +3,7 @@ import {FormulaType} from './Formula'
 /**
  * False
  */
-class False extends LogicalConstant{
+export class False extends LogicalConstant{
     
     public getType(): FormulaType
     {
@@ -15,7 +15,7 @@ class False extends LogicalConstant{
         return false;
     }
 
-    public toString = ():string => {
+    public toString():string {
         return '⊥';
     }
 

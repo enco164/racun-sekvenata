@@ -1,0 +1,27 @@
+{
+  "name": "racun_sekvenata",
+  "version": "1.0.0",
+  "description": "Seminarski za AR",
+  "main": "index.js",
+  "dependencies": {
+    "typescript-collections": "^1.1.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/enco164/racun-sekvenata.git"
+  },
+  "keywords": [
+    "Racun",
+    "sekvenata"
+  ],
+  "author": "Uros Milenkovic, Milan Stojkovic",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/enco164/racun-sekvenata/issues"
+  },
+  "homepage": "https://github.com/enco164/racun-sekvenata#readme"
+}
