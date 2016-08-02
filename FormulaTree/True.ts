@@ -3,7 +3,7 @@ import {FormulaType} from './Formula'
 /**
  * True
  */
-class True extends LogicalConstant{
+export class True extends LogicalConstant{
     
     public getType(): FormulaType
     {
@@ -15,7 +15,7 @@ class True extends LogicalConstant{
         return true;
     }
 
-    public toString = ():string => {
+    public toString(): string {
         return 'T';
     }
 
