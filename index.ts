@@ -12,9 +12,10 @@ import {Valuation} from "./FormulaTree/Valuation";
 
 let p1 = new Atom(1);
 let p2 = new Atom(2);
-let p3 = new Atom(7);
+let p3 = new Atom(3);
+let p4 = new Atom(4);
 
-let formula = new Iff(new Imp(new And(new False(), p1), new Or(p2, p3)), new Not(new True()));
+let formula = new Iff(new Imp(new And(new False(), p1), new Or(p2, p3)), new Not(new And(p4,new True())));
 console.log('Formula: ' + formula.toString());
 
 let atoms = new AtomSet();
