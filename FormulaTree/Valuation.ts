@@ -3,15 +3,15 @@ import * as Collections from 'typescript-collections';
 import {Atom} from "./Atom";
 
 export class Valuation {
-    public value: Collections.Dictionary<number, boolean>;
+    public value: Collections.Dictionary<string, boolean>;
 
     constructor(){
-        this.value = new Collections.Dictionary<number, boolean>();
+        this.value = new Collections.Dictionary<string, boolean>();
     }
 
     public init(atoms: AtomSet): void 
     {
-        this.value = new Collections.Dictionary<number, boolean>();
+        this.value = new Collections.Dictionary<string, boolean>();
         atoms.forEach((atom) => {this.value.setValue(atom, false)});
     }
 
@@ -29,12 +29,12 @@ export class Valuation {
         return false;
     }
 
-    public getValueOfAtom(a: number):boolean
+    public getValueOfAtom(a: string):boolean
     {
         return this.value.getValue(a);
     }
 
-    public setValueOfAtom(a: number, b: boolean):void
+    public setValueOfAtom(a: string, b: boolean):void
     {
         this.value.setValue(a, b);
     }

@@ -6,16 +6,16 @@
  * Atom
  */
 export class Atom extends AtomicFormula {
-    private _varNum : number;
-    constructor(num: number) {
+    private _varNum : string;
+    constructor(num: string) {
         super();
         this._varNum = num;
     }
 
-    public get varNum() : number {
+    public get varNum() : string {
         return this._varNum;
     }
-    public set varNum(v : number) {
+    public set varNum(v : string) {
         this._varNum = v;
     }
     
@@ -42,7 +42,7 @@ export class Atom extends AtomicFormula {
     }
 
     public toString = ():string => {
-        return 'P'+this._varNum;
+        return this._varNum;
     };
 
     public print():void

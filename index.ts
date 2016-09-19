@@ -9,11 +9,14 @@ import {Or} from "./FormulaTree/Or";
 import {Formula} from "./FormulaTree/Formula";
 import {AtomSet} from "./FormulaTree/AtomSet";
 import {Valuation} from "./FormulaTree/Valuation";
+import Parser from './Parser/Parser';
 
-let p1 = new Atom(1);
-let p2 = new Atom(2);
-let p3 = new Atom(3);
-let p4 = new Atom(4);
+
+// TEST Stabla
+let p1 = new Atom('p1');
+let p2 = new Atom('p2');
+let p3 = new Atom('p3');
+let p4 = new Atom('p4');
 
 let formula = new Iff(new Imp(new And(new False(), p1), new Or(p2, p3)), new Not(new And(p4,new True())));
 console.log('Formula: ' + formula.toString());
@@ -25,3 +28,14 @@ console.log(atoms.toArray());
 let valuation = new Valuation();
 valuation.init(atoms);
 do {valuation.print();} while (valuation.nextValuation());
+
+// TEST Parsera
+var parser = new Parser();
+let formula2 = parser.parse(' (((F&p1)->(p2|p3))<->(~(p4&T)))');
+atoms = new AtomSet();
+formula2.getAtoms(atoms);
+valuation = new Valuation();
+valuation.init(atoms);
+do {valuation.print();} while (valuation.nextValuation());
+console.log(formula2.toString());
+
