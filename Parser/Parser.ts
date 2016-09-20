@@ -138,12 +138,15 @@ import {Atom} from './../FormulaTree/Atom';
 
 
 var parser = (function(){
-    var parser = {trace: function trace(){},
+    var parser = {
+        Parser: null,
+        lexer: null,
+        trace: function trace(){},
         yy: {},
         symbols_: {"error":2,"file":3,"formula":4,"EOF":5,"↔":6,"→":7,"∨":8,"∧":9,"¬":10,"(":11,")":12,"PROPOSITION":13,"T":14,"⊥":15,"$accept":0,"$end":1},
         terminals_: {2:"error",5:"EOF",6:"↔",7:"→",8:"∨",9:"∧",10:"¬",11:"(",12:")",13:"PROPOSITION",14:"TRUE",15:"⊥"},
         productions_: [0,[3,2],[4,3],[4,3],[4,3],[4,3],[4,2],[4,3],[4,1],[4,1],[4,1]],
-        performAction: function anonymous(yytext, yyleng, yylineno, yy, yystate /* action[1] */, $$ /* vstack */, _$ /* lstack */
+        performAction: function anonymous(yytext: any, yyleng: any, yylineno: any, yy: any, yystate: any /* action[1] */, $$: any /* vstack */, _$: any /* lstack */
                                           /**/) {
             /* this == yyval */
 
@@ -205,7 +208,7 @@ var parser = (function(){
                 }
                 return token;
             }
-            var symbol, preErrorSymbol, state, action, a, r, yyval = {}, p, len, newState, expected;
+            var symbol, preErrorSymbol, state, action, a, r, yyval = {$: null, _$: null}, p, len, newState, expected;
             while (true) {
                 state = stack[stack.length - 1];
                 if (this.defaultActions[state]) {
@@ -406,7 +409,8 @@ var parser = (function(){
     function Parser () {
         this.yy = {};
     }
-    Parser.prototype = parser;parser.Parser = Parser;
+    Parser.prototype = parser;
+    parser.Parser = Parser;
     return new Parser;
 })();
 
