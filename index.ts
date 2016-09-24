@@ -10,6 +10,9 @@ import {Formula} from "./FormulaTree/Formula";
 import {AtomSet} from "./FormulaTree/AtomSet";
 import {Valuation} from "./FormulaTree/Valuation";
 import Parser from './Parser/Parser';
+import {Sequent} from './SequentCalculus/Sequent'
+import {SequentTreeNode} from './SequentCalculus/SequentTreeNode'
+import {Rule} from "./SequentCalculus/SequentTreeNode";
 
 
 // TEST Stabla
@@ -31,7 +34,7 @@ do {valuation.print();} while (valuation.nextValuation());
 
 // TEST Parsera
 var parser = new Parser();
-let formula2 = parser.parse(' (((F&p1)->(p2|p3))<->(~(p4&T)))');
+let formula2 = parser.parse('(((F&p1)->(p2|p3))|(~(p4&T)))');
 atoms = new AtomSet();
 formula2.getAtoms(atoms);
 valuation = new Valuation();
@@ -39,3 +42,9 @@ valuation.init(atoms);
 do {valuation.print();} while (valuation.nextValuation());
 console.log(formula2.toString());
 
+let seq = new Sequent(null, [formula2]);
+console.log(seq.toString());
+let seqT = new SequentTreeNode(seq, null);
+console.log(seqT.toString());
+seqT.applyRule(Rule.R_OR, 0);
+console.log(seqT.toString());

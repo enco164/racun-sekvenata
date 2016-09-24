@@ -94,4 +94,15 @@ export class SequentTreeNode {
     set children(value:SequentTreeNode[]) {
         this._children = value;
     }
+
+    public toString = ():string => {
+        let s = 'SequentTreeNode{';
+        s += this._sequent.toString();
+        if (this._children) {
+            s+= '; children: [';
+            s += this._children.toString() + '] ';
+
+        }
+        return s + '}';
+    }
 }

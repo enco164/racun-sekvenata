@@ -12,114 +12,125 @@ export class Sequent {
     private _consequents: Formula[];
 
     constructor(antecedents: Formula[], consequents: Formula[]){
-        this._antecedents = antecedents;
-        this._consequents = consequents;
+        this._antecedents = [];
+        if (antecedents) {
+            for (let i = 0; i < antecedents.length; i++) {
+                this._antecedents.push(antecedents[i]);
+            }
+        }
+
+        this._consequents = [];
+        if (consequents) {
+            for (let i = 0; i < consequents.length; i++) {
+                this._consequents.push(consequents[i]);
+            }
+        }
     }
 
     leftConjunction(idx: number): Sequent[] {
         let c: And = (<And>this._antecedents[idx]);
-        let cloneObj = new (<any>this.constructor());
-        cloneObj.antecedents().push(c.operand1, c.operand2);
-        cloneObj.antecedents().splice(idx, 1);
+        let cloneObj = new (<any>this).constructor(this._antecedents, this._consequents);
+        cloneObj.antecedents.push(c.operand1, c.operand2);
+        cloneObj.antecedents.splice(idx, 1);
         return [cloneObj];
     }
 
     rightConjunction(idx: number): Sequent[] {
         let c: And = (<And>this._consequents[idx]);
-        let cloneObj1 = new (<any>this.constructor());
-        let cloneObj2 = new (<any>this.constructor());
+        let cloneObj1 = new (<any>this).constructor(this._antecedents, this._consequents);
+        let cloneObj2 = new (<any>this).constructor(this._antecedents, this._consequents);
 
-        let consequents1 = cloneObj1.consequents();
+        let consequents1 = cloneObj1.consequents;
         consequents1.push(c.operand1);
         consequents1.splice(idx, 1);
-        cloneObj1.consequents(consequents1);
+        cloneObj1.consequents = consequents1;
 
-        let consequents2 = cloneObj2.consequents();
+        let consequents2 = cloneObj2.consequents;
         consequents2.push(c.operand2);
         consequents2.splice(idx, 1);
-        cloneObj1.consequents(consequents2);
+        cloneObj2.consequents = consequents2;
 
         return [cloneObj1, cloneObj2];
     }
 
     leftDisjunction(idx: number): Sequent[] {
         let d: Or = (<Or>this._antecedents[idx]);
-        let cloneObj1 = new (<any>this.constructor());
-        let cloneObj2 = new (<any>this.constructor());
+        let cloneObj1 = new (<any>this).constructor(this._antecedents, this._consequents);
+        let cloneObj2 = new (<any>this).constructor(this._antecedents, this._consequents);
 
-        let antecedents1 = cloneObj1.antecedents();
+        let antecedents1 = cloneObj1.antecedents;
         antecedents1.push(d.operand1);
         antecedents1.splice(idx, 1);
-        cloneObj1.antecedents(antecedents1);
+        cloneObj1.antecedents = antecedents1;
 
-        let antecedents2 = cloneObj2.antecedents();
+        let antecedents2 = cloneObj2.antecedents;
         antecedents2.push(d.operand2);
         antecedents2.splice(idx, 1);
-        cloneObj2.antecedents(antecedents2);
+        cloneObj2.antecedents = antecedents2;
 
         return [cloneObj1, cloneObj2];
     }
 
     rightDisjunction(idx: number): Sequent[] {
-        let d: Or = (<Or>this._antecedents[idx]);
-        let cloneObj = new (<any>this.constructor());
+        let d: Or = (<Or>this._consequents[idx]);
+        let cloneObj = new (<any>this).constructor(this._antecedents, this._consequents);
 
-        let consequents = cloneObj.consequents();
+        let consequents = cloneObj.consequents;
         consequents.push(d.operand1);
         consequents.push(d.operand2);
         consequents.splice(idx, 1);
-        cloneObj.consequents(consequents);
+        cloneObj.consequents = consequents;
 
         return [cloneObj];
     }
 
     leftImplication(idx: number): Sequent[] {
         let i: Imp = (<Imp>this._antecedents[idx]);
-        let cloneObj1 = new (<any>this.constructor());
-        let cloneObj2 = new (<any>this.constructor());
+        let cloneObj1 = new (<any>this).constructor(this._antecedents, this._consequents);
+        let cloneObj2 = new (<any>this).constructor(this._antecedents, this._consequents);
 
-        let antecedents1 = cloneObj1.antecedents();
+        let antecedents1 = cloneObj1.antecedents;
         antecedents1.splice(idx, 1);
-        let consequents1 = cloneObj1.consequents();
+        let consequents1 = cloneObj1.consequents;
         consequents1.push(i.operand1);
-        cloneObj1.antecedents(antecedents1);
-        cloneObj1.consequents(consequents1);
+        cloneObj1.antecedents = antecedents1;
+        cloneObj1.consequents = consequents1;
 
-        let antecedents2 = cloneObj2.antecedents();
+        let antecedents2 = cloneObj2.antecedents;
         antecedents2.push(i.operand2);
         antecedents2.splice(idx, 1);
-        cloneObj2.antecedents(antecedents2);
+        cloneObj2.antecedents = antecedents2;
 
         return [cloneObj1, cloneObj2];
     }
 
     rightImplication(idx: number): Sequent[] {
         let i: Imp = (<Imp>this._consequents[idx]);
-        let cloneObj = new (<any>this.constructor());
+        let cloneObj = new (<any>this).constructor(this._antecedents, this._consequents);
 
-        let antecedents = cloneObj.antecedents();
+        let antecedents = cloneObj.antecedents;
         antecedents.push(i.operand1);
 
-        let consequents = cloneObj.consequents();
+        let consequents = cloneObj.consequents;
         consequents.push(i.operand2);
         consequents.splice(idx, 1);
 
-        cloneObj.antecedents(antecedents);
-        cloneObj.consequents(consequents);
+        cloneObj.antecedents = antecedents;
+        cloneObj.consequents = consequents;
 
         return [cloneObj];
     }
 
     leftNegation(idx: number): Sequent[] {
         let n: Not = (<Not>this._antecedents[idx]);
-        let cloneObj = new (<any>this.constructor());
+        let cloneObj = new (<any>this).constructor(this._antecedents, this._consequents);
 
-        let consequents = cloneObj.consequents();
+        let consequents = cloneObj.consequents;
         consequents.push(n.operand);
-        let antecedents = cloneObj.antecedents();
+        let antecedents = cloneObj.antecedents;
         antecedents.splice(idx, 1);
-        cloneObj.antecedents(antecedents);
-        cloneObj.consequents(consequents);
+        cloneObj.antecedents = antecedents;
+        cloneObj.consequents = consequents;
 
         return [cloneObj];
     }
@@ -127,14 +138,14 @@ export class Sequent {
 
     rightNegation(idx: number): Sequent[] {
         let n: Not = (<Not>this._consequents[idx]);
-        let cloneObj = new (<any>this.constructor());
+        let cloneObj = new (<any>this).constructor(this._antecedents, this._consequents);
 
-        let antecedents = cloneObj.antecedents();
+        let antecedents = cloneObj.antecedents;
         antecedents.push(n.operand);
-        let consequents = cloneObj.consequents();
+        let consequents = cloneObj.consequents;
         consequents.splice(idx, 1);
-        cloneObj.antecedents(antecedents);
-        cloneObj.consequents(consequents);
+        cloneObj.antecedents = antecedents;
+        cloneObj.consequents = consequents;
 
         return [cloneObj];
     }
@@ -154,4 +165,21 @@ export class Sequent {
     set consequents(value:Formula[]) {
         this._consequents = value;
     }
+
+    public toString = ():string => {
+        var s = 'Sequent{';
+
+        if (this._antecedents) {
+            s += 'antecedents: [';
+            s += this._antecedents.toString() + '],';
+        }
+
+        if (this._consequents) {
+            s+=  'consequents: [';
+                s += this._consequents.toString() + ']';
+        }
+
+        s += '}';
+        return s;
+    };
 }
