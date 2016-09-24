@@ -6,8 +6,7 @@
     "watch": true,
     "moduleResolution": "node",
     "removeComments": true,
-    "preserveConstEnums": true,
-    "outFile": "./built/local/tsc.js"
+    "preserveConstEnums": true
 
   },
   "exclude": [
