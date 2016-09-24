@@ -127,14 +127,14 @@
 
 
 
-import {Iff} from './../FormulaTree/Iff';
-import {Imp} from './../FormulaTree/Imp';
-import {Or} from './../FormulaTree/Or';
-import {And} from './../FormulaTree/And';
-import {Not} from './../FormulaTree/Not';
-import {True} from './../FormulaTree/True';
-import {False} from './../FormulaTree/False';
-import {Atom} from './../FormulaTree/Atom';
+import {Iff} from '../FormulaTree/Iff';
+import {Imp} from '../FormulaTree/Imp';
+import {Or} from '../FormulaTree/Or';
+import {And} from '../FormulaTree/And';
+import {Not} from '../FormulaTree/Not';
+import {True} from '../FormulaTree/True';
+import {False} from '../FormulaTree/False';
+import {Atom} from '../FormulaTree/Atom';
 
 
 var parser = (function(){
