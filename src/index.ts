@@ -13,6 +13,7 @@ import Parser from './Parser/Parser';
 import {Sequent} from './SequentCalculus/Sequent'
 import {SequentTreeNode} from './SequentCalculus/SequentTreeNode'
 import {Rule} from "./SequentCalculus/SequentTreeNode";
+import {SequentProver} from "./SequentCalculus/SequentProver"
 
 
 // TEST Stabla
@@ -42,9 +43,7 @@ valuation.init(atoms);
 do {valuation.print();} while (valuation.nextValuation());
 console.log(formula2.toString());
 
-let seq = new Sequent(null, [formula2]);
-console.log(seq.toString());
-let seqT = new SequentTreeNode(seq, null);
-console.log(seqT.toString());
-seqT.applyRule(Rule.R_OR, 0);
-console.log(seqT.toString());
+let seq = new Sequent([parser.parse('A'), parser.parse('F')], [parser.parse('B')]);
+let stn: SequentTreeNode = SequentProver.prove(seq);
+console.log(stn.toString());
+

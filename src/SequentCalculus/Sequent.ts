@@ -30,8 +30,7 @@ export class Sequent {
     leftConjunction(idx: number): Sequent[] {
         let c: And = (<And>this._left[idx]);
         let cloneObj = new (<any>this).constructor(this._left, this._right);
-        cloneObj.left.push(c.operand1, c.operand2);
-        cloneObj.left.splice(idx, 1);
+        cloneObj.left.splice(idx, 1, c.operand1, c.operand2);
         return [cloneObj];
     }
 
@@ -41,13 +40,11 @@ export class Sequent {
         let cloneObj2 = new (<any>this).constructor(this._left, this._right);
 
         let right1 = cloneObj1.right;
-        right1.push(c.operand1);
-        right1.splice(idx, 1);
+        right1.splice(idx, 1,c.operand1);
         cloneObj1.right = right1;
 
         let right2 = cloneObj2.right;
-        right2.push(c.operand2);
-        right2.splice(idx, 1);
+        right2.splice(idx, 1, c.operand2);
         cloneObj2.right = right2;
 
         return [cloneObj1, cloneObj2];
@@ -59,13 +56,11 @@ export class Sequent {
         let cloneObj2 = new (<any>this).constructor(this._left, this._right);
 
         let left1 = cloneObj1.left;
-        left1.push(d.operand1);
-        left1.splice(idx, 1);
+        left1.splice(idx, 1, d.operand1);
         cloneObj1.left = left1;
 
         let left2 = cloneObj2.left;
-        left2.push(d.operand2);
-        left2.splice(idx, 1);
+        left2.splice(idx, 1, d.operand2);
         cloneObj2.left = left2;
 
         return [cloneObj1, cloneObj2];
@@ -76,9 +71,7 @@ export class Sequent {
         let cloneObj = new (<any>this).constructor(this._left, this._right);
 
         let right = cloneObj.right;
-        right.push(d.operand1);
-        right.push(d.operand2);
-        right.splice(idx, 1);
+        right.splice(idx, 1, d.operand1, d.operand2);
         cloneObj.right = right;
 
         return [cloneObj];
@@ -97,8 +90,7 @@ export class Sequent {
         cloneObj1.right = right1;
 
         let left2 = cloneObj2.left;
-        left2.push(i.operand2);
-        left2.splice(idx, 1);
+        left2.splice(idx, 1, i.operand2);
         cloneObj2.left = left2;
 
         return [cloneObj1, cloneObj2];
@@ -112,8 +104,7 @@ export class Sequent {
         left.push(i.operand1);
 
         let right = cloneObj.right;
-        right.push(i.operand2);
-        right.splice(idx, 1);
+        right.splice(idx, 1, i.operand2);
 
         cloneObj.left = left;
         cloneObj.right = right;
