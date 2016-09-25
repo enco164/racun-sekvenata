@@ -3,6 +3,8 @@
  */
 import Parser from '../Parser/Parser';
 import {Formula} from "../FormulaTree/Formula";
+import {SequentTreeNode, Rule} from "../SequentCalculus/SequentTreeNode";
+import {Sequent} from "../SequentCalculus/Sequent";
 
 class SeqCalcController implements angular.IComponentController {
     public leftList: string[];
@@ -10,11 +12,17 @@ class SeqCalcController implements angular.IComponentController {
     public parser: Parser;
     public leftFormulas: Formula[];
     public rightFormulas: Formula[];
+    public showFirstScreen: boolean;
+    public sequentTreeNode;
 
     constructor() {
         this.parser = new Parser();
+        this.leftList = ['~(A/\\B)'];
+        this.rightList = ['~A \\/ ~B'];
         this.leftFormulas = [];
         this.rightFormulas = [];
+        this.showFirstScreen = true;
+        this.sequentTreeNode = null;
     }
 
     parseFormulas() {
@@ -28,6 +36,9 @@ class SeqCalcController implements angular.IComponentController {
         for (let i = 0; i < this.rightList.length; i++) {
             this.rightFormulas.push(this.parser.parse(this.rightList[i]));
         }
+
+        this.showFirstScreen = false;
+        this.sequentTreeNode = new SequentTreeNode(new Sequent(this.leftFormulas, this.rightFormulas), null, Rule.NONE);
     }
 }
 
@@ -38,7 +49,7 @@ export class SeqCalcComponent implements angular.IComponentOptions {
     constructor() {
         this.controller = SeqCalcController;
         this.template =
-            `<div class="container" style="margin-top: 36px; margin-bottom: 36px;">
+            `<div class="container" style="margin-top: 36px; margin-bottom: 36px;" ng-show="$ctrl.showFirstScreen">
     <div class="jumbotron">
       <h2>Interaktivni dokazivač u računu sekvenata</h2>
       <p class="lead">Sintaksa:</p>
@@ -49,8 +60,8 @@ export class SeqCalcComponent implements angular.IComponentOptions {
              "("        (
              ")"        )
              "~"        ¬
-             "&"        ∧
-             "|"        ∨
+             "/\\"       ∧
+             "\\/"       ∨
              "->"       →
              "<->"      ↔</pre>
       <p>Formule odvajati novim redom</p>
@@ -68,6 +79,13 @@ export class SeqCalcComponent implements angular.IComponentOptions {
         <div>{{$ctrl.leftFormulas}}</div>
         <div>{{$ctrl.rightFormulas}}</div>
     </div>
+</div>
+<div ng-hide="$ctrl.showFirstScreen">
+<button class="btn btn-default" ng-click="$ctrl.showFirstScreen = !$ctrl.showFirstScreen">Close</button>
+
+    <sequent-tree-node stn="$ctrl.sequentTreeNode"></sequent-tree-node>
+
 </div>`
+
     }
 }
