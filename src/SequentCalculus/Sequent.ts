@@ -193,4 +193,13 @@ export class Sequent {
         s += '}';
         return s;
     };
+
+    public  niceOutput = ():string => {
+        var s = '';
+        s += this._left.toString();
+        s += " ⊦ ";
+        s += this.right.toString();
+
+        return s;
+    }
 }

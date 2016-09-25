@@ -15,11 +15,11 @@ import {SequentTreeNode} from './SequentCalculus/SequentTreeNode'
 import {Rule} from "./SequentCalculus/SequentTreeNode";
 import {SequentProver} from "./SequentCalculus/SequentProver"
 
-import angular = require('angular');
-import {SeqCalcComponent} from './FrontEnd/SeqCalc';
-angular.module('SequentCalculus', []);
-
-angular.module('SequentCalculus').component('seqCalc', new SeqCalcComponent());
+// import angular = require('angular');
+// import {SeqCalcComponent} from './FrontEnd/SeqCalc';
+// angular.module('SequentCalculus', []);
+//
+// angular.module('SequentCalculus').component('seqCalc', new SeqCalcComponent());
 // TEST Stabla
 let p1 = new Atom('p1');
 let p2 = new Atom('p2');
@@ -39,7 +39,7 @@ do {valuation.print();} while (valuation.nextValuation());
 
 // TEST Parsera
 var parser = new Parser();
-let formula2 = parser.parse('(((F&p1)->(p2|p3))|(~(p4&T)))');
+let formula2 = parser.parse('(((F->p1)->(p2\\/p3))\\/(~(p4/\\T)))');
 atoms = new AtomSet();
 formula2.getAtoms(atoms);
 valuation = new Valuation();
@@ -47,7 +47,8 @@ valuation.init(atoms);
 do {valuation.print();} while (valuation.nextValuation());
 console.log(formula2.toString());
 
-let seq = new Sequent([parser.parse('A'), parser.parse('F')], [parser.parse('B')]);
+let seq = new Sequent([parser.parse('A/\\C'), parser.parse('F')], [parser.parse('B\\/C')]);
 let stn: SequentTreeNode = SequentProver.prove(seq);
 console.log(stn.toString());
+console.log(stn.niceOutput());
 

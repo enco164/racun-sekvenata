@@ -50,4 +50,8 @@ export class SequentTreeNode {
         }
         return s + ', rule: + ' + this._rule + '}';
     }
+
+    public  niceOutput = ():string => {
+        return this._sequent.niceOutput();
+    }
 }

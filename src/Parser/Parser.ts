@@ -153,7 +153,9 @@ var parser = (function(){
             var $0 = $$.length - 1;
             switch (yystate) {
                 case 1: return $$[$0-1];
-                case 2: this.$ = new Iff($$[$0-2], $$[$0]);
+                case 2:
+                    // this.$ = new Iff($$[$0-2], $$[$0]);
+                    this.$ = new And(new Imp($$[$0-2], $$[$0]), new Imp($$[$0], $$[$0-2]));
                     break;
                 case 3: this.$ = new Imp($$[$0-2], $$[$0]);
                     break;
@@ -388,7 +390,7 @@ var parser = (function(){
                     case 11:return 5;
                 }
             },
-            rules: [/^(?:\s+)/,/^(?:F\b)/,/^(?:T\b)/,/^(?:\w+)/,/^(?:\()/,/^(?:\))/,/^(?:~)/,/^(?:&)/,/^(?:\|)/,/^(?:->)/,/^(?:<->)/,/^(?:$)/],
+            rules: [/^(?:\s+)/,/^(?:F\b)/,/^(?:T\b)/,/^(?:\w+)/,/^(?:\()/,/^(?:\))/,/^(?:~)/,/^(?:\/\\)/,/^(?:\\\/)/,/^(?:->)/,/^(?:<->)/,/^(?:$)/],
             conditions: {"INITIAL":{"rules":[0,1,2,3,4,5,6,7,8,9,10,11],"inclusive":true}}
         };
         return lexer;
