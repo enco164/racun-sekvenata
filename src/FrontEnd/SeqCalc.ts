@@ -37,8 +37,8 @@ class SeqCalcController implements angular.IComponentController {
             this.rightFormulas.push(this.parser.parse(this.rightList[i]));
         }
 
-        this.showFirstScreen = false;
         this.sequentTreeNode = new SequentTreeNode(new Sequent(this.leftFormulas, this.rightFormulas), null, Rule.NONE);
+        this.showFirstScreen = false;
     }
 }
 
@@ -80,7 +80,7 @@ export class SeqCalcComponent implements angular.IComponentOptions {
         <div>{{$ctrl.rightFormulas}}</div>
     </div>
 </div>
-<div ng-hide="$ctrl.showFirstScreen">
+<div ng-if="!$ctrl.showFirstScreen">
 <button class="btn btn-default" ng-click="$ctrl.showFirstScreen = !$ctrl.showFirstScreen">Close</button>
 
     <sequent-tree-node stn="$ctrl.sequentTreeNode"></sequent-tree-node>
