@@ -15,7 +15,11 @@ import {SequentTreeNode} from './SequentCalculus/SequentTreeNode'
 import {Rule} from "./SequentCalculus/SequentTreeNode";
 import {SequentProver} from "./SequentCalculus/SequentProver"
 
+import angular = require('angular');
+import {SeqCalcComponent} from './FrontEnd/SeqCalc';
+angular.module('SequentCalculus', []);
 
+angular.module('SequentCalculus').component('seqCalc', new SeqCalcComponent());
 // TEST Stabla
 let p1 = new Atom('p1');
 let p2 = new Atom('p2');
