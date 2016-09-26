@@ -82,7 +82,8 @@ export class SequentProver {
         // Operatori koji vracaju dva deteta
         for (var i = 0; i < left.length; i++) {
             var formula = left[i];
-            if (formula.getType() == FormulaType.T_OR) {
+            var type = formula.getType();
+            if (type == FormulaType.T_OR) {
                 var seq = sequent.leftDisjunction(i);
                 return new SequentTreeNode(sequent, [this.prove(seq[0]), this.prove(seq[1])], Rule.L_OR);
             } else if (type == FormulaType.T_IMP) {
@@ -100,6 +101,6 @@ export class SequentProver {
         }
 
         // nema preostalih operatora i nije aksioma
-        return new SequentTreeNode(sequent, [new SequentTreeNode(new Sequent([new Atom("FAIL")], null), null, null)], Rule.NONE);
+        return new SequentTreeNode(sequent, [new SequentTreeNode(new Sequent([new Atom("FAIL")], null), null, null)], null);
     }
 }

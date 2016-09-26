@@ -9,7 +9,7 @@ import {Sequent} from "../SequentCalculus/Sequent";
 class SeqCalcController implements angular.IComponentController {
     public leftList: string[];
     public rightList: string[];
-    public parser: Parser;
+    public parser: any;
     public leftFormulas: Formula[];
     public rightFormulas: Formula[];
     public showFirstScreen: boolean;
@@ -76,8 +76,8 @@ export class SeqCalcComponent implements angular.IComponentOptions {
             <textarea class="form-control" rows="6" ng-model="$ctrl.rightList" ng-list="&#10;" ng-trim="false"></textarea>
         </div>
         <div class="col-md-12 text-right" style="margin-top: 8px"><button class="btn btn-primary" ng-click="$ctrl.parseFormulas()">GO!</button></div>
-        <div>{{$ctrl.leftFormulas}}</div>
-        <div>{{$ctrl.rightFormulas}}</div>
+        <!--<div>{{$ctrl.leftFormulas}}</div>-->
+        <!--<div>{{$ctrl.rightFormulas}}</div>-->
     </div>
 </div>
 <div ng-if="!$ctrl.showFirstScreen">
