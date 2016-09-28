@@ -37,7 +37,7 @@ export class SequentProver {
                     if (right[j].getType() == FormulaType.T_ATOM && (<Atom>right[j]).varNum == name) {
                         if (left.length > 1 || right.length > 1) {
                             var axiom = new SequentTreeNode(new Sequent([new Atom(name)], [new Atom(name)]), null, Rule.ASS);
-                            return new SequentTreeNode(sequent, [axiom], Rule.AXIOM);
+                            return new SequentTreeNode(sequent, [axiom], Rule.WEAK);
                         } else  // X |= X
                             return new SequentTreeNode(sequent, null, Rule.ASS);
                     }

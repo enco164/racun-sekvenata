@@ -63,7 +63,7 @@ export class SequentTreeNodeController {
                 for (var j = 0; j < seq.right.length; j++) {
                     if (seq.right[j].getType() == FormulaType.T_ATOM && (<Atom>seq.right[j]).varNum == name) {
                         if (seq.left.length > 1 || seq.right.length > 1) {
-                            this.availableRules.push(Rule.AXIOM);
+                            this.availableRules.push(Rule.WEAK);
                         } else {
                             this.availableRules.push(Rule.ASS);
                         }
@@ -76,6 +76,11 @@ export class SequentTreeNodeController {
     onAuto() {
         this.sequentTreeNode = SequentProver.prove(this.sequentTreeNode.sequent);
         console.log(this.sequentTreeNode);
+    }
+
+    clearChilds() {
+        this.sequentTreeNode.rule = Rule.NONE;
+        this.sequentTreeNode.children = [];
     }
 
     onRule(rule) {
@@ -159,13 +164,13 @@ export class SequentTreeNodeController {
             case Rule.ASS:
                 this.sequentTreeNode.rule = Rule.ASS;
                 break;
-            case Rule.AXIOM:
+            case Rule.WEAK:
                 for (let i = 0; i < seq.left.length; i++) {
                     if (seq.left[i].getType() == FormulaType.T_ATOM) {
                         var name = (<Atom>seq.left[i]).varNum;
                         for (let j = 0; j < seq.right.length; j++) {
                             if (seq.right[j].getType() == FormulaType.T_ATOM && (<Atom>seq.right[j]).varNum == name) {
-                                this.sequentTreeNode.rule = Rule.AXIOM;
+                                this.sequentTreeNode.rule = Rule.WEAK;
                                 this.sequentTreeNode.children = [new SequentTreeNode(new Sequent([new Atom(name)], [new Atom(name)]), null, Rule.NONE)];
                                 break;
                             }
@@ -187,32 +192,23 @@ export class SequentTreeNodeComponent implements angular.IComponentOptions {
             sequentTreeNode : '<stn'
         };
         this.template =
-            `<div class="container-fluid">
+            `
 
-                <div class="row">
-                    <div class="col-sm-12" ng-if="$ctrl.sequentTreeNode.children.length == 1">
-                            <sequent-tree-node stn="$ctrl.sequentTreeNode.children[0]" ></sequent-tree-node>
-                    </div>
-
-                    <div ng-if="$ctrl.sequentTreeNode.children.length == 2">
-                        <div class="col-sm-6">
-                            <sequent-tree-node stn="$ctrl.sequentTreeNode.children[0]" ></sequent-tree-node>
-                        </div>
-                        <div class="col-sm-6">
-                            <sequent-tree-node stn="$ctrl.sequentTreeNode.children[1]" ></sequent-tree-node>
-                        </div>
-                    </div>
-                    
-                </div>
-                <div class="text-center" ng-if="$ctrl.sequentTreeNode.rule == $ctrl.rules['NONE']">
-                    <button class="btn btn-primary" ng-repeat="rule in $ctrl.rules" ng-if="$ctrl.availableRules.indexOf(rule) >= 0" ng-click="$ctrl.onRule(rule)">{{$ctrl.rules[rule]}}</button>
-                    <button class="btn btn-primary" ng-click="$ctrl.onAuto()">Auto</button>
-                </div>
-                <div class="text-center" style="margin: 16px; border-top: 3px solid #5c5c5c;">
-                    <span >{{$ctrl.sequentTreeNode.niceOutput()}}</span>
-                </div>
-
-            </div>
+            <span ng-class="{'rule_none' : $ctrl.sequentTreeNode.rule == $ctrl.rules['ASS'] }">{{$ctrl.sequentTreeNode.niceOutput()}} &nbsp;&nbsp;&nbsp;&nbsp;
+                <sup ng-if="$ctrl.sequentTreeNode.rule != $ctrl.rules['NONE']">{{$ctrl.rules[$ctrl.sequentTreeNode.rule]}}</sup>
+                <button ng-if="$ctrl.sequentTreeNode.rule && $ctrl.sequentTreeNode.rule != $ctrl.rules['NONE']" ng-click="$ctrl.clearChilds()">&times;</button>
+            </span>
+            <ul>
+            <li ng-if="$ctrl.sequentTreeNode.children.length > 0"><sequent-tree-node stn="$ctrl.sequentTreeNode.children[0]" ></sequent-tree-node></li>
+            <li ng-if="$ctrl.sequentTreeNode.children.length == 2"><sequent-tree-node stn="$ctrl.sequentTreeNode.children[1]" ></sequent-tree-node></li>
+            <li ng-if="$ctrl.sequentTreeNode.rule == $ctrl.rules['NONE']">
+                <span>
+                    <button ng-repeat="rule in $ctrl.rules" ng-if="$ctrl.availableRules.indexOf(rule) >= 0" ng-click="$ctrl.onRule(rule)">{{$ctrl.rules[rule]}}</button>
+                    <button ng-if="$ctrl.availableRules.length > 0" ng-click="$ctrl.onAuto()">Auto</button>
+                </span>
+                <span ng-if="$ctrl.availableRules.length == 0">FAIL</span>
+            </li>
+            </ul>
         `;
     }
 

@@ -17,8 +17,8 @@ class SeqCalcController implements angular.IComponentController {
 
     constructor() {
         this.parser = new Parser();
-        this.leftList = ['~(A/\\B)'];
-        this.rightList = ['~A \\/ ~B'];
+        this.leftList = ['A /\\ (B \\/ C)', 'B'];
+        this.rightList = ['(A /\\ B) \\/ (B /\\ C)'];
         this.leftFormulas = [];
         this.rightFormulas = [];
         this.showFirstScreen = true;
@@ -80,11 +80,21 @@ export class SeqCalcComponent implements angular.IComponentOptions {
         <!--<div>{{$ctrl.rightFormulas}}</div>-->
     </div>
 </div>
-<div ng-if="!$ctrl.showFirstScreen">
-<button class="btn btn-default" ng-click="$ctrl.showFirstScreen = !$ctrl.showFirstScreen">Close</button>
-
-    <sequent-tree-node stn="$ctrl.sequentTreeNode"></sequent-tree-node>
-
+<div ng-if="!$ctrl.showFirstScreen" class="container-fluid">
+    <div class="row text-right">
+        <button class="btn btn-default" ng-click="$ctrl.showFirstScreen = !$ctrl.showFirstScreen">Close</button>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tree">
+	            <ul>
+	                <li class="root">
+                        <sequent-tree-node stn="$ctrl.sequentTreeNode"></sequent-tree-node>
+	                </li>
+	            </ul>
+	        </div>
+        </div>
+    </div>
 </div>`
 
     }

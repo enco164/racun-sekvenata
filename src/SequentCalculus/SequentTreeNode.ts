@@ -3,7 +3,7 @@
  */
 import {Sequent} from "./Sequent";
 
-export enum Rule { L_AND, L_OR, L_IMP, L_NOT, R_AND, R_OR, R_NOT, R_IMP, ASS, AXIOM, NONE }
+export enum Rule { L_AND, L_OR, L_IMP, L_NOT, R_AND, R_OR, R_NOT, R_IMP, ASS, WEAK, NONE }
 
 export class SequentTreeNode {
     private _sequent: Sequent;
