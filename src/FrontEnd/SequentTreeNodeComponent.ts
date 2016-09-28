@@ -196,7 +196,7 @@ export class SequentTreeNodeComponent implements angular.IComponentOptions {
 
             <span ng-class="{'rule_none' : $ctrl.sequentTreeNode.rule == $ctrl.rules['ASS'] }">{{$ctrl.sequentTreeNode.niceOutput()}} &nbsp;&nbsp;&nbsp;&nbsp;
                 <sup ng-if="$ctrl.sequentTreeNode.rule != $ctrl.rules['NONE']">{{$ctrl.rules[$ctrl.sequentTreeNode.rule]}}</sup>
-                <button ng-if="$ctrl.sequentTreeNode.rule && $ctrl.sequentTreeNode.rule != $ctrl.rules['NONE']" ng-click="$ctrl.clearChilds()">&times;</button>
+                <button ng-if="$ctrl.rules[$ctrl.sequentTreeNode.rule] && $ctrl.sequentTreeNode.rule != $ctrl.rules['NONE']" ng-click="$ctrl.clearChilds()">&times;</button>
             </span>
             <ul>
             <li ng-if="$ctrl.sequentTreeNode.children.length > 0"><sequent-tree-node stn="$ctrl.sequentTreeNode.children[0]" ></sequent-tree-node></li>
@@ -206,7 +206,7 @@ export class SequentTreeNodeComponent implements angular.IComponentOptions {
                     <button ng-repeat="rule in $ctrl.rules" ng-if="$ctrl.availableRules.indexOf(rule) >= 0" ng-click="$ctrl.onRule(rule)">{{$ctrl.rules[rule]}}</button>
                     <button ng-if="$ctrl.availableRules.length > 0" ng-click="$ctrl.onAuto()">Auto</button>
                 </span>
-                <span ng-if="$ctrl.availableRules.length == 0">FAIL</span>
+                <span ng-if="$ctrl.availableRules.length == 0" style="color: red; font-weight: 800">FAIL</span>
             </li>
             </ul>
         `;

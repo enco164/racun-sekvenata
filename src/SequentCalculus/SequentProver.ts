@@ -101,6 +101,6 @@ export class SequentProver {
         }
 
         // nema preostalih operatora i nije aksioma
-        return new SequentTreeNode(sequent, [new SequentTreeNode(new Sequent([new Atom("FAIL")], null), null, null)], null);
+        return new SequentTreeNode(sequent, [], Rule.NONE);
     }
 }
